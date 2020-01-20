@@ -1,0 +1,30 @@
+version: '3'
+services:
+  webapp:
+    build: 
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: lifeautomation_apache
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html/
+    links:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_NAME: "db"
+      DB_USER: "root"
+      DB_PASSWORD: "root"
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: "database"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
