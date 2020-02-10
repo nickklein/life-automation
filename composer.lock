@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23d06ab2e21d1324652025df7a1860b1",
+    "content-hash": "a96e533a9f1856a67dd7c12b744bdf73",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -3938,6 +3938,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-11-13T19:16:13+00:00"
         }
     ],

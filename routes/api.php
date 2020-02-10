@@ -22,3 +22,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/device/{id}', 'api\DevicesController@show')->name('device.single');
     Route::post('/device/delete', 'api\DevicesController@destroy')->name('device.destroy');
 });
+
+Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('weather.show');
