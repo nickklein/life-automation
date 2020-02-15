@@ -25,10 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('run:getCurrentWeather')
-                    ->dailyAt('05:00');
+                    ->hourly();
 
         $schedule->command('run:getWeatherForecast')
-                    ->dailyAt('05:00');
+                    ->dailyAt('01:00');
 
     }
 

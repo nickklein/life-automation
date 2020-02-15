@@ -15,7 +15,9 @@ class WeatherService
                 'description' => Arr::get($weather, '0.description'),
                 'temp' => $weather->avg('temp'),
                 'rain' => $weather->avg('rain'),
+                'rain3h' => $weather->avg('rain3h'),
                 'snow' => $weather->avg('snow'),
+                'snow3h' => $weather->avg('snow3h'),
             ];
        }
        return [];
