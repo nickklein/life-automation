@@ -27,7 +27,7 @@ class WeatherRepository
             if ($currated) {
                 $query->where('snow', '>', 0)
                         ->orWhere('rain', '>', 0)
-                        ->orWhere('temp', '<', 8);
+                        ->orWhere('temp', '<', 14);
             }
         })
         ->get();    
