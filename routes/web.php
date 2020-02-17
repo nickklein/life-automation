@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'oauth'], function () {
+    Route::get('/clients', 'OAuthController@clients')->name('oauth.clients');
+    Route::get('/personal-access-token', 'OAuthController@personalAccessToken')->name('oauth.personal');
+    Route::get('/authorized-clients', 'OAuthController@authorizedClients')->name('oauth.authorized'); 
+});
