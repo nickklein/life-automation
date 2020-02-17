@@ -21,6 +21,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/devices', 'api\DevicesController@index')->name('devices');
     Route::get('/device/{id}', 'api\DevicesController@show')->name('device.single');
     Route::post('/device/delete', 'api\DevicesController@destroy')->name('device.destroy');
+
+
+    Route::get('/device/{id}/jobs', 'api\DeviceJobsController@index')->where('id', '[0-9]+')->name('device.jobs');
+    Route::post('/device/{id}/jobs/create', 'api\DeviceJobsController@store')->where('id', '[0-9]+')->name('device.jobs.create');
+    Route::patch('/device/{id}/jobs/update', 'api\DeviceJobsController@update')->where('id', '[0-9]+')->name('device.jobs.update');
 });
 
 Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('weather.show');

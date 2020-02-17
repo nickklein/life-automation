@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateJobsRequest;
+use App\Http\Requests\JobsRequest;
+use App\Services\DeviceJobsService;
 use Illuminate\Http\Request;
-use App\Services\DeviceService;
-use Illuminate\Support\Facades\Auth;
 
-class DevicesController extends Controller
+class DeviceJobsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(DeviceService $deviceService)
+    public function index(JobsRequest $request, DeviceJobsService $deviceJobs)
     {
-        return $deviceService->list();
+        //
+        $jobs = $deviceJobs->jobs($request->route('id'), $request->validated());
+        return response()->json($jobs);
     }
 
     /**
@@ -35,9 +38,13 @@ class DevicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateJobsRequest $request, DeviceJobsService $deviceJobs)
     {
-        //
+        $response = $deviceJobs->create($request->route('id'), $request->validated());
+        if ($response) {
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error']);
     }
 
     /**
@@ -48,10 +55,7 @@ class DevicesController extends Controller
      */
     public function show($id)
     {
-        return Devices::where([
-            'user_id' => Auth::user()->id,
-            'device_id' => $id
-        ])->get();
+        //
     }
 
     /**
@@ -72,9 +76,14 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobsRequest $request, DeviceJobsService $deviceJobs, $id)
     {
         //
+        $response = $deviceJobs->update($id, $request->validated());
+        if ($response) {
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error']);
     }
 
     /**
@@ -86,6 +95,5 @@ class DevicesController extends Controller
     public function destroy($id)
     {
         //
-        return Devices::where('device_id', $id)->delete();
     }
 }

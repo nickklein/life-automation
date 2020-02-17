@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Cities;
 use App\Models\Weather;
+use App\Services\LogsService;
 use App\Traits\WeatherTraits;
 use GuzzleHttp\Client as GuzzleHttp;
 use Illuminate\Support\Arr;
@@ -72,6 +73,7 @@ class GetCurrentWeather extends Command
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
+            (new LogsService)->handle('cron.getCurrentWeather', 'Collected current weather results for ' . $city->city_name);
         }
         Weather::insert($fill);
     }
