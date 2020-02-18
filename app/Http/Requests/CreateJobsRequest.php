@@ -25,9 +25,7 @@ class CreateJobsRequest extends FormRequest
     {
         return [
             //
-            'key' => 'required|string',
-            'value' => 'required|string',
-            'status' => 'required|string',
+            'type' => 'required|string',
         ];
     }
 }

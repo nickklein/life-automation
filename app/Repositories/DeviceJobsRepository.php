@@ -26,4 +26,14 @@ class DeviceJobsRepository
     {
         return DeviceJobs::find($deviceJobId);
     }
+
+    public function isAlreadyQueued(int $deviceId, string $key)
+    {
+        return DeviceJobs::where([
+            ['device_id', $deviceId],
+            ['key', $key],
+            ['status', 'queue'],
+        ])->count();
+    }
+
 }
