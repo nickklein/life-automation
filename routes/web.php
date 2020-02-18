@@ -23,3 +23,6 @@ Route::group(['prefix' => 'oauth'], function () {
     Route::get('/personal-access-token', 'OAuthController@personalAccessToken')->name('oauth.personal');
     Route::get('/authorized-clients', 'OAuthController@authorizedClients')->name('oauth.authorized'); 
 });
+Route::group(['prefix' => 'devices'], function () {
+    Route::get('/', 'DevicesController@index')->name('oauth.clients');
+});

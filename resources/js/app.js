@@ -5,8 +5,15 @@
  */
 
 require('./bootstrap');
+import Vue from 'vue';
+import vueResource from 'vue-resource';
+Vue.use(vueResource);
 
-window.Vue = require('vue');
+Vue.http.interceptors.push((request, next) => {
+    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+
+    next();
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,8 +25,6 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component(
     'passport-clients',
@@ -35,6 +40,12 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+
+Vue.component(
+    'devices-list',
+    require('./components/devices/Devices.vue').default
+);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

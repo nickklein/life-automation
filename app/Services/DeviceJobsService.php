@@ -41,6 +41,20 @@ class DeviceJobsService
      **/
     public function create(int $deviceId, array $fields)
     {
+        $keys = ["reboot" => "reboot", "shutdown" => "shutdown"];
+        $repository = new DeviceJobsRepository();
+        // Only run if it doesn't exist already
+        if (!$repository->isAlreadyQueued($deviceId, $keys[$fields["type"]])) {
+            return $this->store($deviceId, ["key" => $keys[$fields["type"]], "value" => 1, "status" => "queue"]);
+        }
+    }
+
+    /**
+     * Create new device job
+     *
+     **/
+    private function store(int $deviceId, array $fields)
+    {
         $deviceJobs = new DeviceJobs;
         $deviceJobs->device_id = $deviceId;
         $deviceJobs->key = $fields['key'];
@@ -54,4 +68,5 @@ class DeviceJobsService
         }
         return false;
     }
+
 }
