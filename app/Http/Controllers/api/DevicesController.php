@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Devices;
 use Illuminate\Http\Request;
 use App\Services\DeviceService;
 use Illuminate\Support\Facades\Auth;
@@ -46,12 +47,9 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, DeviceService $deviceService)
     {
-        return Devices::where([
-            'user_id' => Auth::user()->id,
-            'device_id' => $id
-        ])->get();
+        return response()->json($deviceService->single($id));
     }
 
     /**
@@ -72,9 +70,9 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, DeviceService $deviceService)
     {
-        //
+        return response()->json($deviceService->updateDeviceInformation($id, $request->ip()));
     }
 
     /**

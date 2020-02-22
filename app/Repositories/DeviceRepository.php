@@ -18,4 +18,12 @@ class DeviceRepository
             ['device_id' => $deviceId],
         ])->get();
     }
+
+    public function first(int $userId, int $deviceId)
+    {
+        return Devices::where([
+            'user_id' => $userId,
+            'device_id' => $deviceId
+        ])->first();
+    }
 }
