@@ -26,26 +26,11 @@ Vue.http.interceptors.push((request, next) => {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
-
-Vue.component(
-    'devices-list',
-    require('./components/devices/Devices.vue').default
-);
-
+Vue.component('passport-clients',require('./components/passport/Clients.vue').default);
+Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue').default);
+Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue').default);
+Vue.component('devices-list',require('./components/devices/Devices.vue').default);
+Vue.component('device-jobs-list',require('./components/devices/DeviceJobs.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

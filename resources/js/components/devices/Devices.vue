@@ -12,7 +12,7 @@
                 <td>{{item.device_id}}</td>
                 <td>{{item.device_name}}</td>
                 <td>{{item.last_sync}}</td>
-                <td>N/A</td>
+                <td>{{item.last_online}}</td>
                 <td><a href="#" class="btn btn-primary" v-on:click="action('reboot', item.device_id)">Reboot</a> <a href="#" class="btn btn-primary" v-on:click="action('shutdown', item.device_id)">Shutdown</a></td>
             </tr>
         </tbody>

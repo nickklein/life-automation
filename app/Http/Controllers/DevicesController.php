@@ -11,4 +11,9 @@ class DevicesController extends Controller
     {
         return view('pages.devices.index');
     }
+
+    public function jobs()
+    {
+        return view('pages.devices.jobs');
+    }
 }

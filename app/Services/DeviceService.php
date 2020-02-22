@@ -18,13 +18,37 @@ class DeviceService
     }
 
     /**
+     * single
+     *
+     **/
+    public function single(int $id)
+    {
+        return (new DeviceRepository)->first(Auth::user()->id, $id);
+    }
+
+    /**
      * Update sync time for a device
      *
      **/
     public function updateLastSync(int $deviceId): void
     {
-        $device = Devices::find($deviceId);
+        $device = (new DeviceRepository)->first(Auth::user()->id, $deviceId);
         $device->last_sync = date('Y-m-d H:i:s');
         $device->save();
+    }
+
+    /**
+     * Update sync time for a device
+     *
+     **/
+    public function updateDeviceInformation(int $deviceId, string $ipAddress): array
+    {
+        $device = (new DeviceRepository)->first(Auth::user()->id, $deviceId);
+        $device->last_online = date('Y-m-d H:i:s');
+        $device->last_ip = $ipAddress;
+        if ($device->save()) {
+            return ['status' => 'success'];
+        }
+        return ['status' => 'error'];
     }
 }

@@ -24,7 +24,6 @@ class CreateJobsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
             'type' => 'required|string',
         ];
     }

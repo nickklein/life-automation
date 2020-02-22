@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateJobsRequest;
 use App\Http\Requests\JobsRequest;
 use App\Services\DeviceJobsService;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class DeviceJobsController extends Controller
@@ -15,10 +17,10 @@ class DeviceJobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(JobsRequest $request, DeviceJobsService $deviceJobs)
+    public function index(DeviceJobsService $deviceJobs)
     {
         //
-        $jobs = $deviceJobs->jobs($request->route('id'), $request->validated());
+        $jobs = $deviceJobs->allJobs();
         return response()->json($jobs);
     }
 
@@ -41,10 +43,7 @@ class DeviceJobsController extends Controller
     public function store(CreateJobsRequest $request, DeviceJobsService $deviceJobs)
     {
         $response = $deviceJobs->create($request->route('id'), $request->validated());
-        if ($response) {
-            return response()->json(['status' => 'success']);
-        }
-        return response()->json(['status' => 'error']);
+        return response()->json($response);
     }
 
     /**
@@ -53,10 +52,13 @@ class DeviceJobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(JobsRequest $request, DeviceJobsService $deviceJobs)
     {
         //
+        $jobs = $deviceJobs->jobs($request->route('id'), $request->validated());
+        return response()->json($jobs);
     }
+
 
     /**
      * Show the form for editing the specified resource.
