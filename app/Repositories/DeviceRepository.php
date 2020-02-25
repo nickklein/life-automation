@@ -21,7 +21,7 @@ class DeviceRepository
 
     public function first(int $userId, int $deviceId)
     {
-        return Devices::where([
+        return Devices::with('device_settings')->where([
             'user_id' => $userId,
             'device_id' => $deviceId
         ])->first();
