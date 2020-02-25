@@ -11,13 +11,14 @@ class DeviceJobsRepository
      * Get a list of jobs assosciated to a device and status
      *
      **/
-    public function all(int $userId)
+    public function all(int $userId, int $limit)
     {
         return DeviceJobs::select("device_jobs.*", 'devices.device_name')->where([
             ['devices.user_id', $userId],
         ])
         ->join('devices', 'devices.device_id', 'device_jobs.device_id')
         ->orderBy('device_jobs.device_job_id', 'desc')
+        ->limit($limit)
         ->get();
     }
 

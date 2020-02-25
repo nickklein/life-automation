@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Devices;
+use App\Http\Requests\FilesRequest;
+use App\Services\FilesService;
 use Illuminate\Http\Request;
-use App\Services\DeviceService;
-use Illuminate\Support\Facades\Auth;
 
-class DevicesController extends Controller
+class FilesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(DeviceService $deviceService)
+    public function index()
     {
-        return $deviceService->list();
+        //
     }
 
     /**
@@ -36,9 +35,11 @@ class DevicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FilesRequest $request)
     {
-        //
+        $file = $request->file;
+        $request = $request->validated();
+        return (new FilesService)->create($request, $file);
     }
 
     /**
@@ -47,9 +48,9 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request, DeviceService $deviceService)
+    public function show($id)
     {
-        return response()->json($deviceService->single($id, $request));
+        //
     }
 
     /**
@@ -70,9 +71,9 @@ class DevicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, DeviceService $deviceService)
+    public function update(Request $request, $id)
     {
-        return response()->json($deviceService->updateDeviceInformation($id, $request->ip()));
+        //
     }
 
     /**
@@ -84,6 +85,5 @@ class DevicesController extends Controller
     public function destroy($id)
     {
         //
-        return Devices::where('device_id', $id)->delete();
     }
 }

@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DeviceJobsService
 {
-    const ACTIONS_KEYS = ["reboot" => "reboot", "shutdown" => "shutdown"];
+    const ACTIONS_KEYS = ["reboot" => "reboot", "shutdown" => "shutdown", "update" => "update"];
 
     public function allJobs()
     {
-        return (new DeviceJobsRepository)->all(Auth::user()->id);
+        return (new DeviceJobsRepository)->all(Auth::user()->id, 25);
     }
 
     /**
@@ -52,8 +52,6 @@ class DeviceJobsService
      **/
     public function create(int $deviceId, array $fields): array
     {
-        // TODO: Needs to be locked into the user ID
-
         $repository = new DeviceJobsRepository();
         // Only run if it doesn't exist already
         if (!$repository->isAlreadyQueued(Auth::user()->id, $deviceId, self::ACTIONS_KEYS[$fields["type"]])) {

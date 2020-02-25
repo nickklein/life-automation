@@ -39070,6 +39070,20 @@ var render = function() {
                 }
               },
               [_vm._v("Shutdown")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.action("update", item.device_id)
+                  }
+                }
+              },
+              [_vm._v("Update")]
             )
           ])
         ])

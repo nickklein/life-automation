@@ -28,6 +28,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/device/{id}', 'api\DevicesController@show')->name('api.device.single');
     Route::post('/device/delete', 'api\DevicesController@destroy')->name('api.device.destroy');
     Route::patch('/device/{id}/update', 'api\DevicesController@update')->name('api.device.update');
+
+    Route::post('/files/store', 'api\FilesController@store')->name('api.files.store');
+
 });
 
 Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('api.weather.show');
