@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\DeviceJobs;
+use App\Models\Devices;
 
 class DeviceJobsRepository
 {
@@ -54,16 +55,32 @@ class DeviceJobsRepository
      * Check to see if there's already something in the queue for it
      *
      **/
-    public function isAlreadyQueued(int $userId, int $deviceId, string $key)
+    public function isAlreadyQueued(int $deviceId, string $key)
     {
         return DeviceJobs::join('devices', 'devices.device_id', 'device_jobs.device_id')
         ->where([
-            ['devices.user_id', $userId],
             ['status', 'queue'],
             ['devices.device_id', $deviceId],
             ['key', $key],
             ['status', 'queue'],
         ])->count();
+    }
+
+    /**
+     * Check to see if the owner is correct
+     *
+     **/
+    public function isOwner(int $userId, int $deviceId): bool
+    {
+        $count = Devices::where([
+            'user_id' => $userId,
+            'device_id' => $deviceId
+        ])->count();
+        if ($count) {
+            return true;
+        }
+
+        return false;
     }
 
 }

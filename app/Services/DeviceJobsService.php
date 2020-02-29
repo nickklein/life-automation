@@ -53,18 +53,21 @@ class DeviceJobsService
     public function create(int $deviceId, array $fields): array
     {
         $repository = new DeviceJobsRepository();
-        // Only run if it doesn't exist already
-        if (!$repository->isAlreadyQueued(Auth::user()->id, $deviceId, self::ACTIONS_KEYS[$fields["type"]])) {
-            return $this->store($deviceId, ["key" => self::ACTIONS_KEYS[$fields["type"]], "value" => 1, "status" => "queue"]);
+        if ($repository->isOwner(Auth::user()->id, $deviceId)) {
+            // Only run if it doesn't exist already
+            if (!$repository->isAlreadyQueued($deviceId, self::ACTIONS_KEYS[$fields["type"]])) {
+                return $this->store($deviceId, ["key" => self::ACTIONS_KEYS[$fields["type"]], "value" => 1, "status" => "queue"]);
+            }
+            return ['status' => 'error', 'message' => 'There is already a job in the queue for this'];
         }
-        return ['status' => 'error', 'message' => 'There is already a job in the queue for this'];
+        return ['status' => 'error', 'message' => 'Incorrect permissions'];
     }
 
     /**
      * Create new device job
      *
      **/
-    private function store(int $deviceId, array $fields): array
+    public function store(int $deviceId, array $fields): array
     {
         $deviceJobs = new DeviceJobs;
         $deviceJobs->device_id = $deviceId;

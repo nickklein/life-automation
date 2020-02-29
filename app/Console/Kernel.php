@@ -30,6 +30,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('run:getWeatherForecast')
                     ->dailyAt('01:00');
 
+        $schedule->command('run:queueCamera')
+                    ->everyMinute();
+
     }
 
     /**
