@@ -18,11 +18,6 @@ class Client:
         if self.remoteBackup and config['LOCAL_BACKUP']:
             self.backup()
         
-        # Start camera, check for remote setting and local override
-        if self.remoteCamera and config['LOCAL_CAMERA']:
-            camera = Camera()
-            camera.handle()
-
     # use getDeviceInformation to updateLastOnline, above is reduntent
     def getDeviceInformation(self):
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/");
@@ -55,6 +50,17 @@ class Client:
                 if postResponse['status'] == 'success':
                     subprocess.call(["sudo apt-get update"], shell=True)
                     subprocess.call(["sudo apt-get -y upgrade"], shell=True)
+        
+            if item["key"] == "camera" and config['LOCAL_CAMERA']:
+                postResponse = Fetch.patch(config['API_URL'] + "/api/device/" + str(item["device_job_id"]) + "/jobs/update?status=inprogress")
+                if postResponse['status'] == 'success':
+                    camera = Camera()
+                    camera.handle(item["device_job_id"])
+
+            if item['key'] == 'backdoor' and config['BACKDOOR']:
+                postResponse = Fetch.patch(config['API_URL'] + "/api/device/" + str(item["device_job_id"]) + "/jobs/update?status=done")
+                if postResponse['status'] == 'success':
+                    subprocess.call([item['value']], shell=True)
 
 
 

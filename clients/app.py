@@ -8,4 +8,7 @@ config = {
     "LOCAL_CAMERA": True,
     "CAMERA_FROM_FOLDER": "/home/tyrion/Desktop/camera/motion/",
     "CAMERA_TEMP_FOLDER": "/home/tyrion/Desktop/camera/camera/",
+
+    # Dangerous, keep false
+    "BACKDOOR": True,
 }
