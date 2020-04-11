@@ -2,8 +2,10 @@ import os
 import subprocess
 import json
 from app import config
+from app import configBackup
 from fetch import Fetch
 from camera import Camera
+from backup import Backup
 
 class Client:
     lastSync = '';
@@ -13,24 +15,17 @@ class Client:
     def handle(self):
         self.getDeviceInformation()
         self.runJobs()
-
-        # Start backup, check for remote setting and local override
-        if self.remoteBackup and config['LOCAL_BACKUP']:
-            self.backup()
         
     # use getDeviceInformation to updateLastOnline, above is reduntent
     def getDeviceInformation(self):
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/");
         self.lastSync = response['last_sync']
 
-        if 'camera' in response['device_settings']:
-            self.remoteCamera = response['device_settings']['camera']
+        if 'startCamera' in response['device_settings']:
+            self.remoteCamera = int(response['device_settings']['startCamera'])
 
-        if 'backup' in response['device_settings']:
-            self.remoteBackup = response['device_settings']['backup']
-
-    def backup(self):
-        print('backup')
+        if 'startBackup' in response['device_settings']:
+            self.remoteBackup = int(response['device_settings']['startBackup'])
 
     def runJobs(self):
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/jobs?status=queue");
@@ -51,11 +46,14 @@ class Client:
                     subprocess.call(["sudo apt-get update"], shell=True)
                     subprocess.call(["sudo apt-get -y upgrade"], shell=True)
         
-            if item["key"] == "camera" and config['LOCAL_CAMERA']:
+            if item["key"] == "camera" and self.remoteCamera and config['LOCAL_CAMERA']:
                 postResponse = Fetch.patch(config['API_URL'] + "/api/device/" + str(item["device_job_id"]) + "/jobs/update?status=inprogress")
                 if postResponse['status'] == 'success':
                     camera = Camera()
                     camera.handle(item["device_job_id"])
+
+            if item["key"] == "backup" and self.remoteBackup and config['LOCAL_BACKUP']:
+                backup = Backup(item["device_job_id"])
 
             if item['key'] == 'backdoor' and config['BACKDOOR']:
                 postResponse = Fetch.patch(config['API_URL'] + "/api/device/" + str(item["device_job_id"]) + "/jobs/update?status=done")
