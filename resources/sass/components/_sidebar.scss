@@ -1,0 +1,34 @@
+
+.sidebar {
+    grid-area: sidenav;
+    background: $sidebar;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .sidebar__logo {
+    padding: 2em;
+    text-align: center;
+}
+
+.sidebar__list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.sidebar__list-item {
+    width: 100%;
+}
+
+.sidebar__list-item a {
+    background: $sidebar;
+    color: $link-color-light;
+    display: block;
+    padding: 20px 20px;
+    width: 100%;
+    &:hover {
+        background: $sidebar-hover;
+        text-decoration: none;
+    }
+}

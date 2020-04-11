@@ -1,0 +1,20 @@
+#app {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 3vw auto;
+    grid-column-gap: 20px;
+    grid-template-areas:
+    "sidenav head"
+    "sidenav main";
+    height: 100vh;
+}
+
+header {
+    grid-area: head;
+    text-align: right;
+    padding: 5px 10px;
+}
+
+.main {
+    grid-area: main;
+}
