@@ -1,4 +1,5 @@
 from app import config
+from app import configCamera
 from fetch import Fetch
 import subprocess
 import hashlib
@@ -7,25 +8,28 @@ import datetime;
 
 class Camera:
     def handle(self, deviceJobId):
-        cameraFolder = os.listdir(config['CAMERA_FROM_FOLDER'])
-        hashname = self.compressFiles()
-        checksum = self.checksum(config['CAMERA_TEMP_FOLDER'] + hashname + ".7z")
-        self.uploadFiles(hashname, checksum)
-        self.cleanFolders(cameraFolder, hashname)
+        cameraFolder = os.listdir(configCamera['CAMERA_FROM_FOLDER'])
+        # make sure it's not empty
+        if cameraFolder:
+            hashname = self.compressFiles()
+            checksum = self.checksum(configCamera['CAMERA_TEMP_FOLDER'] + hashname + ".7z")
+            self.uploadFiles(hashname, checksum)
+            self.cleanFolders(cameraFolder, hashname)
         
         Fetch.patch(config['API_URL'] + "/api/device/" + str(deviceJobId) + "/jobs/update?status=done")
+        Fetch.patch(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/updateLastSync?type=camera_last_synced")
 
     def moveFiles(self):
-        cameraFolder = os.listdir(config['CAMERA_FROM_FOLDER'])
+        cameraFolder = os.listdir(configCamera['CAMERA_FROM_FOLDER'])
         for item in cameraFolder:
-            os.rename(config['CAMERA_FROM_FOLDER'] + item, config['CAMERA_TEMP_FOLDER'] + item)
+            os.rename(configCamera['CAMERA_FROM_FOLDER'] + item, configCamera['CAMERA_TEMP_FOLDER'] + item)
 
         return cameraFolder
 
     def compressFiles(self):
         currentdatetime = str(datetime.datetime.now())
         name = hashlib.md5(currentdatetime.encode())
-        rc = subprocess.call(['7z', 'a', '-p' + config['ENCRYPTION_KEY'], '-y', config['CAMERA_TEMP_FOLDER'] + name.hexdigest() + '.7z', '-xr!node_modules', '-xr!vendor', '-xr!easymarkit', '-xr!_ignore_backup', '-xr!dconf', '-xr!Bitwarden CLI', '-mhe'] + [config['CAMERA_FROM_FOLDER']])
+        rc = subprocess.call(['7z', 'a', '-p' + config['ENCRYPTION_KEY'], '-y', configCamera['CAMERA_TEMP_FOLDER'] + name.hexdigest() + '.7z', '-xr!node_modules', '-xr!vendor', '-xr!easymarkit', '-xr!_ignore_backup', '-xr!dconf', '-xr!Bitwarden CLI', '-mhe'] + [configCamera['CAMERA_FROM_FOLDER']])
         
         return name.hexdigest()
 
@@ -34,7 +38,7 @@ class Camera:
 
     def uploadFiles(self, hashname, checksum):
         files = {
-            'file': open(config['CAMERA_TEMP_FOLDER'] + hashname + '.7z','rb')
+            'file': open(configCamera['CAMERA_TEMP_FOLDER'] + hashname + '.7z','rb')
         }
         data = {
             'device_id': config['CLIENT_ID'], 
@@ -47,6 +51,6 @@ class Camera:
 
     def cleanFolders(self, folder, hashname):
         for item in folder:
-            os.remove(config['CAMERA_FROM_FOLDER'] + item)
+            os.remove(configCamera['CAMERA_FROM_FOLDER'] + item)
 
-        os.remove(config['CAMERA_TEMP_FOLDER'] + hashname + '.7z')
+        os.remove(configCamera['CAMERA_TEMP_FOLDER'] + hashname + '.7z')

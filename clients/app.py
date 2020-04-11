@@ -1,14 +1,55 @@
 config = {
-    "CLIENT_ID": "3",
-    "API_URL": "http://lifeautomation.loc",
-    "PERSONAL_ACCESS_TOKEN": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWJjODViYjFiNDUzMTVmNWEzN2NmYWYyNGE5OGU2NGFhYzRiMmE2NjJmZGUwYTk5NzU3Y2RhMDNlNDNiYWNhNzE1ZGNiMmU0ZDIzMGQ1NTAiLCJpYXQiOjE1ODE5NTg1MzQsIm5iZiI6MTU4MTk1ODUzNCwiZXhwIjoxNjEzNTgwOTM0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.M073mJ4MQh-4kauYug0c5-xDoJ6OkYkmWSqpe2jKOomEMw_ecXK4DDQGsPuTeZO6sbQnitkb3DkG2XFIBM1DHegWYYpUnzRQ1UhKfoVl9pMd5DM1czYss4K5fUFp5Q8wo4CvR3C0COyCELxq0KFVWicJwjU-9C5fF__5ZwfffcQFSv3S7zifpVPvKN6qMk3GTyWHFVj3rqObbUnCVoLihU7TDYttbFdTRzxvNKViiIJM5wrkk5JC-RY8hSSo1ujSPJUY3KpkbV91zdKh8t4rpahrxE3lfcv03Jn_Hak5g1-VZwY_8zafc8ZZ9BKeTxu6YrPIxzUBmvv9HRh3QzKGqUtgSaTUker3aFVf54OKuTqAl2A7pi-IcjuSydkQdndJVQKWRfVORmvgAUl3AQeyVsX3VJfpaESk06dbwZE2GcnKYkfUcko1LVqJn4lb3vpkiFrZdWNfjTil1yyP54ubFgzGISVa7aJhXAw640i1kIrPhHhmlxrQA38jTrO7pWp4gb3z3AsvsmjpYC63a9R07MHcUedWQ-BJq43hbKKSb7H77rew9D5C3jiqsg4JED1Vwd6hx-BC12KImLqDSXtW12Ahi9bjSCWEhiGqQ1UwRxY_cxYYT_rUHR0QnuXFddBbkYP6fSlJzpd9Lu2qEa6ZnJjGkrq-Pa-GaChxCh2THXo",
-    "ENCRYPTION_KEY": "test",
-    "LOCAL_BACKUP": True,
+    "CLIENT_ID": "2",
+    "API_URL": "http://life.nickklein.ca",
+    "PERSONAL_ACCESS_TOKEN": "[ENCRYPTION]",
+    "ENCRYPTION_KEY": "[ENCRYPTION]",
 
-    "LOCAL_CAMERA": True,
-    "CAMERA_FROM_FOLDER": "/home/tyrion/Desktop/camera/motion/",
-    "CAMERA_TEMP_FOLDER": "/home/tyrion/Desktop/camera/camera/",
+    "LOCAL_BACKUP": True,
+    "LOCAL_CAMERA": False,
 
     # Dangerous, keep false
-    "BACKDOOR": True,
+    "BACKDOOR": False,
+}
+
+configCamera = {
+    "CAMERA_FROM_FOLDER": "/home/[username]/Desktop/camera/motion/",
+    "CAMERA_TEMP_FOLDER": "/home/[username]/Desktop/camera/camera/",
+}
+
+configBackup = {
+    	# Select all the directories that need to be backed up
+	"FOLDERS": [
+        ['/home/[username]/Desktop/', 'Desktop'],
+        ['/home/[username]/Documents/', 'Documents'],
+        ['/home/[username]/Music/', 'Music'],
+        ['/home/[username]/Pictures/', 'Pictures'],
+        ['/home/[username]/Videos/', 'Videos'],
+        ['/home/[username]/Sites/', 'Sites'],
+        ['/home/[username]/Sublime Projects/', 'Sublime Projects' ],
+        ['/home/[username]/Backup/', 'Backup' ],
+        ['/home/[username]/FiraxisLive/', 'FiraxisLive' ]
+	],
+
+	#File Paths to pickle files.
+	"PICKLE_FTP_FILEPATH": '/home/[username]/Backup/pickles/ftp_filesizes.pickle',
+	"PICKLE_USB_FILEPATH": '/home/[username]/Backup/pickles/usb_filesizes.pickle',
+	"PICKLE_ACTIVE_FILEPATH": '/home/[username]/Backup/pickles/active.pickle',
+
+	"FTP_BACKUP": True,
+	"FTP_HOST": '192.168.1.131',
+	"FTP_USER": 'tyrion',
+	"FTP_PASSWORD": '',
+
+	"SFTP_BACKUP": False,
+	"SFTP_HOST": '192.168.1.183',
+	"SFTP_USER": 'tyrion',
+	"SFTP_PASSWORD": '',
+
+
+	"USB_BACKUP": False,
+	"USB_DIR": '/media/[username]/usb-backup/',
+
+	"ENCRYPTION_KEY": 'ENCRYPTION',
+
+	"TMP_FOLDER": '/home/[username]/temp/'
 }
