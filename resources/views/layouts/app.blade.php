@@ -34,8 +34,9 @@
                 <img src="{{ asset('/images/logo.png') }}" alt="SteamCompanion">
             </div>
             <ul class="sidebar__list">
-                    <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
-                    <li class="sidebar__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
+                <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
+                <li class="sidebar__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
+                <li class="sidebar__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
             </ul>
         </aside>
 

@@ -1,23 +1,3 @@
-<template>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Last Synced</th>
-            <th>Last Online</th>
-            <th>Actions</th>
-        </thead>
-        <tbody>
-            <tr v-for="item in items" v-bind:key="item.device_id">
-                <td>{{item.device_id}}</td>
-                <td>{{item.device_name}}</td>
-                <td>{{item.last_sync}}</td>
-                <td>{{item.last_online}}</td>
-                <td><a href="#" class="btn btn-primary" v-on:click="action('reboot', item.device_id)">Reboot</a> <a href="#" class="btn btn-primary" v-on:click="action('shutdown', item.device_id)">Shutdown</a> <a href="#" class="btn btn-primary" v-on:click="action('update', item.device_id)">Update</a></td>
-            </tr>
-        </tbody>
-    </table>
-</template>
 <script>
 export default {
     data() {
