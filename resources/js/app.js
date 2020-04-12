@@ -30,6 +30,7 @@ Vue.component('passport-clients',require('./components/passport/Clients.vue').de
 Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue').default);
 Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue').default);
 Vue.component('devices-list',require('./components/devices/Devices.vue').default);
+Vue.component('device-settings-list', require('./components/devices/DeviceSettings.vue').default);
 Vue.component('device-jobs-list',require('./components/devices/DeviceJobs.vue').default);
 
 /**

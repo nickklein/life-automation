@@ -28,6 +28,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/device/{id}', 'api\DevicesController@show')->name('api.device.single');
     Route::post('/device/delete', 'api\DevicesController@destroy')->name('api.device.destroy');
     Route::patch('/device/{id}/update', 'api\DevicesController@update')->name('api.device.update');
+    Route::get('/device/{deviceId}/settings/{settingsName}', 'api\DeviceSettingsController@show')->name('api.device.settings');
+    Route::post('/device/{deviceId}/settings/{settingsName}/update', 'api\DeviceSettingsController@update')->name('api.device.settings.update');
 
     Route::post('/files/store', 'api\FilesController@store')->name('api.files.store');
 
