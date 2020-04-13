@@ -14,7 +14,8 @@ class DeviceJobsRepository
      **/
     public function all(int $userId, int $limit)
     {
-        return DeviceJobs::select("device_jobs.*", 'devices.device_name')->where([
+        return DeviceJobs::select("device_jobs.*", 'devices.device_name')
+        ->where([
             ['devices.user_id', $userId],
         ])
         ->join('devices', 'devices.device_id', 'device_jobs.device_id')
