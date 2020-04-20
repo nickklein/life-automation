@@ -22,10 +22,10 @@ class Client:
         self.lastSync = response['last_sync']
 
         if 'startCamera' in response['device_settings']:
-            self.remoteCamera = int(response['device_settings']['startCamera'])
+            self.remoteCamera = int(response['device_settings']['camera_feature'])
 
         if 'startBackup' in response['device_settings']:
-            self.remoteBackup = int(response['device_settings']['startBackup'])
+            self.remoteBackup = int(response['device_settings']['backup_feature'])
 
     def runJobs(self):
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/jobs?status=queue");

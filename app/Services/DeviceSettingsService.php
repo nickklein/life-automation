@@ -22,7 +22,9 @@ class DeviceSettingsService
 
     public function show(int $deviceId, string $settingsName)
     {
-        return $this->settingsRepository->find(Auth::user()->id, $deviceId, $settingsName);
+        if ($this->settingsRepository->isOwner(Auth::user()->id, $deviceId)) {
+            return $this->settingsRepository->find($deviceId, $settingsName);
+        }
     }
 
     public function update(Request $request, int $deviceId, string $settingsName)

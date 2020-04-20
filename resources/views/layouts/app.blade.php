@@ -31,7 +31,7 @@
 
         <aside class="sidebar">
             <div class="sidebar__logo">
-                <img src="{{ asset('/images/logo.png') }}" alt="SteamCompanion">
+                <h4>Life Automation</h4>
             </div>
             <ul class="sidebar__list">
                 <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
