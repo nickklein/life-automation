@@ -16,7 +16,7 @@ class QueueBackup extends Command
      *
      * @var string
      */
-    protected $signature = 'run:backupCamera';
+    protected $signature = 'run:queueBackup';
 
     /**
      * The console command description.
