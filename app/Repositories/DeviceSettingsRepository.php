@@ -30,7 +30,7 @@ class DeviceSettingsRepository
 
     public function update(Request $request, int $userId, int $deviceId,string $settingsName): bool
     {
-        $deviceSettings = $this->find($userId, $deviceId, $settingsName);
+        $deviceSettings = $this->find($deviceId, $settingsName);
 
         $deviceSettings->value = $request->value;
         if ($deviceSettings->save()) {
