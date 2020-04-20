@@ -21,10 +21,10 @@ class Client:
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/");
         self.lastSync = response['last_sync']
 
-        if 'startCamera' in response['device_settings']:
+        if 'camera_feature' in response['device_settings']:
             self.remoteCamera = int(response['device_settings']['camera_feature'])
 
-        if 'startBackup' in response['device_settings']:
+        if 'backup_feature' in response['device_settings']:
             self.remoteBackup = int(response['device_settings']['backup_feature'])
 
     def runJobs(self):

@@ -43,7 +43,11 @@ class Backup:
 			self.pickle_dump(configBackup["PICKLE_ACTIVE_FILEPATH"], 0)
 
 			Fetch.patch(config['API_URL'] + "/api/device/" + str(deviceJobId) + "/jobs/update?status=done")
-			Fetch.patch(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/updateLastSync?type=backup_last_synced")
+			files = {}
+			data = {
+				'value': time.strftime('%Y-%m-%d %H:%M:%S')
+			}
+			Fetch.post(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/settings/backup_last_synced/update", files, data)
 			print('All done!')
 
 	def check_filesizes(self, filepath, bktype):
