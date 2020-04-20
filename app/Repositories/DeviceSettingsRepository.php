@@ -19,13 +19,12 @@ class DeviceSettingsRepository
             ->get();
     }
 
-    public function find(int $userId, int $deviceId, string $settingsName)
+    public function find(int $deviceId, string $settingsName)
     {
-        return DeviceSettings::select('device_settings.device_settings_id', 'device_settings.key', 'device_settings.value')->join('devices', 'devices.device_id', 'device_settings.device_id')
+        return DeviceSettings::select('device_settings.device_settings_id', 'device_settings.key', 'device_settings.value')
         ->where([
             'device_settings.device_id' => $deviceId,
             'key' => $settingsName,
-            'user_id' => $userId,
         ])->first();
     }
 

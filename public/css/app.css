@@ -11357,6 +11357,7 @@ a.text-dark:focus {
 }
 
 .sidebar {
+  color: #fff;
   grid-area: sidenav;
   background: #2f2f2f;
   height: 100%;

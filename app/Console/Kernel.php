@@ -33,6 +33,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('run:queueCamera')
                     ->everyMinute();
 
+        $schedule->command('run:queueBackup')
+                    ->everyTenMinutes();
+
+
     }
 
     /**
