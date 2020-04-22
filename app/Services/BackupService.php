@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class BackupService
 {
-    private $repository;
+    private $settingsRepository;
 
     public function __construct(DeviceSettingsRepository $settingsRepository)
     {
