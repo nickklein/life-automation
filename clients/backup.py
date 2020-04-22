@@ -40,14 +40,16 @@ class Backup:
 				backup_info = self.check_filesizes(configBackup["PICKLE_USB_FILEPATH"], 'usb')
 				self.start_backup(backup_info, deviceJobId)
 
-			self.pickle_dump(configBackup["PICKLE_ACTIVE_FILEPATH"], 0)
 
-			Fetch.patch(config['API_URL'] + "/api/device/" + str(deviceJobId) + "/jobs/update?status=done")
-			files = {}
-			data = {
-				'value': time.strftime('%Y-%m-%d %H:%M:%S')
-			}
-			Fetch.post(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/settings/backup_last_synced/update", files, data)
+			if self.check_conditions('ftp') or self.check_conditions('usb'):
+				Fetch.patch(config['API_URL'] + "/api/device/" + str(deviceJobId) + "/jobs/update?status=done")
+				files = {}
+				data = {
+					'value': time.strftime('%Y-%m-%d %H:%M:%S')
+				}
+				Fetch.post(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/settings/backup_last_synced/update", files, data)
+			
+			self.pickle_dump(configBackup["PICKLE_ACTIVE_FILEPATH"], 0)
 			print('All done!')
 
 	def check_filesizes(self, filepath, bktype):
