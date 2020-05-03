@@ -23,6 +23,7 @@ class DeviceJobsService
     public function jobs(int $deviceId, array $fields): object
     {
         $status = (isset($fields['status'])) ? $fields['status'] : '';
+        
         return (new DeviceJobsRepository)->get(Auth::user()->id, $deviceId, $status);
     }
 
@@ -30,7 +31,7 @@ class DeviceJobsService
      * Update device job status
      *
      **/
-    public function update(int $deviceJobId, array $fields)
+    public function update(int $deviceJobId, array $fields): bool
     {
         $deviceJobs = (new DeviceJobsRepository)->find(Auth::user()->id, $deviceJobId);
         if ($deviceJobs) {
@@ -38,11 +39,11 @@ class DeviceJobsService
             $deviceJobs->updated_at = date('Y-m-d H:i:s');
             if ($deviceJobs->save()) {
                 // Update last sync update, and log
-                (new DeviceService)->updateLastSync($deviceJobs->device_id);
                 (new LogsService)->handle('deviceLog.update', 'Updated job status: ' . $fields['status']);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -60,6 +61,7 @@ class DeviceJobsService
             }
             return ['status' => 'error', 'message' => 'There is already a job in the queue for this'];
         }
+
         return ['status' => 'error', 'message' => 'Incorrect permissions'];
     }
 
@@ -80,6 +82,7 @@ class DeviceJobsService
             (new LogsService)->handle('deviceLogs.create.' . $fields['key'], 'Created job (' . $fields['key'] . ') with the value: ' . $fields['value']);
             return ['status' => 'success', 'message' => 'Job has been successfully created'];
         }
+
         return ['status' => 'error', 'message' => 'Something went wrong with saving'];
     }
 

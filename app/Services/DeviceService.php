@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Devices;
 use App\Repositories\DeviceRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,15 @@ class DeviceService
     **/
     public function list(): object
     {
-        return (new DeviceRepository)->all(Auth::user()->id);
+        $now = Carbon::now();
+        $devices = (new DeviceRepository)->all(Auth::user()->id);
+        $formatedDevices = $devices->map(function($device) {
+            $device->last_online = Carbon::parse($device->last_online)->diffForHumans();
+
+            return $device;
+        });
+
+        return $formatedDevices;
     }
 
     /**
@@ -33,18 +42,8 @@ class DeviceService
         $settings = $this->getSettings($repository['device_settings']);
         $response = $repository;
         $response['device_settings'] = $settings;
-        return $response;
-    }
 
-    /**
-     * Update sync time for a device
-     *
-     **/
-    public function updateLastSync(int $deviceId): void
-    {
-        $device = (new DeviceRepository)->first(Auth::user()->id, $deviceId);
-        $device->last_sync = date('Y-m-d H:i:s');
-        $device->save();
+        return $response;
     }
 
     /**
@@ -59,6 +58,7 @@ class DeviceService
         if ($device->save()) {
             return ['status' => 'success'];
         }
+
         return ['status' => 'error'];
     }
 
@@ -68,6 +68,7 @@ class DeviceService
         foreach($settings as $setting) {
             $response[$setting["key"]] = ($setting["value"]) ? true : false;
         }
+        
         return $response;
     }
 }
