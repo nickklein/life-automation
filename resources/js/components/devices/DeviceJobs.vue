@@ -1,6 +1,6 @@
 <template>
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="thead">
             <th>ID</th>
             <th>Device Name</th>
             <th>Key</th>

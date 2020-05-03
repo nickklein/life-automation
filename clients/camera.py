@@ -17,7 +17,7 @@ class Camera:
             self.cleanFolders(cameraFolder, hashname)
         
         Fetch.patch(config['API_URL'] + "/api/device/" + str(deviceJobId) + "/jobs/update?status=done")
-        Fetch.patch(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/updateLastSync?type=camera_last_synced")
+        #Fetch.patch(config['API_URL'] + "/api/device/" + str(config['CLIENT_ID']) + "/updateLastSync?type=camera_last_synced")
 
     def moveFiles(self):
         cameraFolder = os.listdir(configCamera['CAMERA_FROM_FOLDER'])
