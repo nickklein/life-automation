@@ -8,7 +8,6 @@ from camera import Camera
 from backup import Backup
 
 class Client:
-    lastSync = '';
     remoteBackup = 0;
     remoteCamera = 0;
 
@@ -19,7 +18,6 @@ class Client:
     # use getDeviceInformation to updateLastOnline, above is reduntent
     def getDeviceInformation(self):
         response = Fetch.get(config['API_URL'] + "/api/device/" + config['CLIENT_ID'] + "/");
-        self.lastSync = response['last_sync']
 
         if 'camera_feature' in response['device_settings']:
             self.remoteCamera = int(response['device_settings']['camera_feature'])
