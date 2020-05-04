@@ -1,0 +1,9 @@
+.btn-primary {
+    margin: 5px;
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+        margin: 0;
+        width: auto;
+    }
+}

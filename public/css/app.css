@@ -11356,19 +11356,29 @@ a.text-dark:focus {
   }
 }
 
-.sidebar {
-  color: #fff;
-  grid-area: sidenav;
-  background: #2f2f2f;
-  height: 100%;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-direction: column;
+.navigation {
+  grid-area: nav;
 }
 
-.sidebar .sidebar__logo {
+.navigation__sidebar {
+  color: #fff;
+  background: #2f2f2f;
+  height: 100%;
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .navigation__sidebar {
+    display: block;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+}
+
+.navigation__sidebar .sidebar__logo {
   padding: 2em;
   text-align: center;
 }
@@ -11395,13 +11405,73 @@ a.text-dark:focus {
   text-decoration: none;
 }
 
-#app {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  grid-template-rows: 3vw auto;
-  grid-column-gap: 20px;
-  grid-template-areas: "sidenav head" "sidenav main";
-  height: 100vh;
+.navigation__mobile {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background: #2f2f2f;
+  color: #fff;
+}
+
+@media (min-width: 576px) {
+  .navigation__mobile {
+    display: none;
+  }
+}
+
+.mobile__logo {
+  margin-right: auto;
+  padding: 1em;
+  font-weight: bold;
+}
+
+.mobile__logo a {
+  color: #fff;
+}
+
+.mobile__menu {
+  padding: 1em;
+}
+
+.mobile__list {
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+}
+
+.mobile__list-item {
+  width: 100%;
+}
+
+.mobile__list-item a {
+  display: block;
+  background: #2f2f2f;
+  color: #fff;
+  width: 100%;
+  padding: 0.5em 1em;
+}
+
+.btn-primary {
+  margin: 5px;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .btn-primary {
+    margin: 0;
+    width: auto;
+  }
+}
+
+@media (min-width: 576px) {
+  #app {
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 3vw auto;
+    grid-column-gap: 20px;
+    grid-template-areas: "nav head" "nav main";
+    height: 100vh;
+  }
 }
 
 header {
@@ -11411,6 +11481,7 @@ header {
 }
 
 .main {
+  padding: 1em;
   grid-area: main;
 }
 
