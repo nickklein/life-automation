@@ -29,16 +29,34 @@
 <body>
     <div id="app">
 
-        <aside class="sidebar">
-            <div class="sidebar__logo">
-                <h4>Life Automation</h4>
-            </div>
-            <ul class="sidebar__list">
-                <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
-                <li class="sidebar__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
-                <li class="sidebar__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
-            </ul>
-        </aside>
+        <navigation inline-template>
+            <nav class="navigation">
+                <aside class="navigation__sidebar">
+                    <div class="sidebar__logo">
+                        <h4>{{ config('app.name', 'Life Automation') }}</h4>
+                    </div>
+                    <ul class="sidebar__list">
+                        <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
+                        <li class="sidebar__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
+                        <li class="sidebar__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
+                    </ul>
+                </aside>
+
+                <div class="navigation__mobile">
+                    <div class="mobile__logo">
+                        <a href="{{ url('/') }}">{{ config('app.name', 'Life Automation') }}</a>
+                    </div>
+                    <div class="mobile__menu">
+                        <button v-on:click="toggle">Menu</button>
+                    </div>
+                    <ul class="mobile__list" v-if="showNavigation">
+                        <li class="mobile__list-item"><a href="{{ route("devices") }}">Device</a></li>
+                        <li class="mobile__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
+                        <li class="mobile__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </navigation>
 
         <header>
             Hello

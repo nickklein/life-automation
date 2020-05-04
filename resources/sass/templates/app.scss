@@ -1,12 +1,14 @@
 #app {
-    display: grid;
-    grid-template-columns: 1fr 6fr;
-    grid-template-rows: 3vw auto;
-    grid-column-gap: 20px;
-    grid-template-areas:
-    "sidenav head"
-    "sidenav main";
-    height: 100vh;
+    
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: 1fr 6fr;
+        grid-template-rows: 3vw auto;
+        grid-column-gap: 20px;
+        grid-template-areas:
+        "nav head"
+        "nav main";
+        height: 100vh;
+    }
 }
 
 header {
@@ -16,5 +18,6 @@ header {
 }
 
 .main {
+    padding: 1em;
     grid-area: main;
 }
