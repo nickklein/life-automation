@@ -9,15 +9,15 @@ class WeatherService
 {
    public function currated(int $id): array
    {
-       $weather = WeatherRepository::forecast($id, 1);
+       $weather = WeatherRepository::forecast($id);
        if (!$weather->isEmpty()) {
             return [
                 'description' => Arr::get($weather, '0.description'),
                 'temp' => $weather->avg('temp'),
-                'rain' => $weather->avg('rain'),
-                'rain3h' => $weather->avg('rain3h'),
-                'snow' => $weather->avg('snow'),
-                'snow3h' => $weather->avg('snow3h'),
+                'rain' => $weather->sum('rain'),
+                'rain3h' => $weather->sum('rain3h'),
+                'snow' => $weather->sum('snow'),
+                'snow3h' => $weather->sum('snow3h'),
             ];
        }
        return [];

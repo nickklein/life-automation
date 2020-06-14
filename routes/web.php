@@ -11,14 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth', 'prefix' => 'oauth'], function () {
     Route::get('/clients', 'OAuthController@clients')->name('oauth.clients');
     Route::get('/personal-access-token', 'OAuthController@personalAccessToken')->name('oauth.personal');
