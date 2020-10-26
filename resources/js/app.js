@@ -32,6 +32,7 @@ Vue.component('passport-personal-access-tokens',require('./components/passport/P
 Vue.component('devices-list',require('./components/devices/Devices.vue').default);
 Vue.component('device-settings-list', require('./components/devices/DeviceSettings.vue').default);
 Vue.component('device-jobs-list',require('./components/devices/DeviceJobs.vue').default);
+Vue.component('life-weather',require('./components/WeatherComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

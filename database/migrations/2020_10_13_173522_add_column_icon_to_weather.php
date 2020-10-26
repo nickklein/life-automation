@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIPColumnToDevices extends Migration
+class AddColumnIconToWeather extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddIPColumnToDevices extends Migration
      */
     public function up()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            //
-            $table->string('last_ip')->nullable()->after('last_online');
+        Schema::table('weathers', function (Blueprint $table) {
+            $table->string('icon')->default('')->after('api_id');
         });
     }
 
@@ -26,9 +25,8 @@ class AddIPColumnToDevices extends Migration
      */
     public function down()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            //
-            $table->dropColumn('last_ip');
+        Schema::table('weathers', function (Blueprint $table) {
+            Schema::dropIfExists('icon');
         });
     }
 }
