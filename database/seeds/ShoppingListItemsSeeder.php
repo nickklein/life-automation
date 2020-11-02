@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ShoppingItemsSeeder extends Seeder
+class ShoppingListItemsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class ShoppingItemsSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\ShoppingItems::class, 100)->create();
+        factory(\App\Models\ShoppingListItems::class, 100)->create();
     }
 }

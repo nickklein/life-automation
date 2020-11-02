@@ -11,6 +11,6 @@ class ShoppingListSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\ShoppingLists::class, 500)->create();
+        factory(\App\Models\ShoppingLists::class, 2)->create();
     }
 }

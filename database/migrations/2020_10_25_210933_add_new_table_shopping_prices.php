@@ -13,7 +13,7 @@ class AddNewTableShoppingPrices extends Migration
      */
     public function up()
     {
-        Schema::table('shopping_prices', function (Blueprint $table) {
+        Schema::create('shopping_prices', function (Blueprint $table) {
             $table->mediumIncrements('shopping_price_id');
             $table->mediumInteger('shopping_item_id');
             $table->integer('amount');

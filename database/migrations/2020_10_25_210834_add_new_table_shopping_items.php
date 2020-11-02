@@ -13,11 +13,11 @@ class AddNewTableShoppingItems extends Migration
      */
     public function up()
     {
-        Schema::table('shopping_items', function (Blueprint $table) {
+        Schema::create('shopping_items', function (Blueprint $table) {
             $table->mediumIncrements('shopping_item_id');
-            $table->mediumInteger('shopping_list_id');
             $table->string('name', 255);
-            $table->integer('user_id');
+            $table->string('walmart', 500);
+            $table->string('saveonfood', 500);
         });
     }
 

@@ -24,6 +24,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'devices'], function () {
     Route::get('/jobs', 'DevicesController@jobs')->name('devices.jobs');
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => 'shopping'], function () {
+    Route::get('/', 'ShoppingController@index')->name('shopping');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/device/{deviceId}/settings', 'DeviceSettingsController@show')->name('device.settings');    
 });
