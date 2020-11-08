@@ -57,6 +57,7 @@ class GetCurrentWeather extends Command
                 'main' => Arr::get($current, 'weather.0.main'),
                 'api_id' => Arr::get($current, 'weather.0.id'),
                 'description' => Arr::get($current, 'weather.0.description'),
+                'icon' => Arr::get($current, 'weather.0.icon'),
                 'temp' => Arr::get($current, 'main.temp'),
                 'temp_min' => Arr::get($current, 'main.temp_min'),
                 'temp_max' => Arr::get($current, 'main.temp_max'),

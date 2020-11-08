@@ -14,9 +14,11 @@ class WeatherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function dashboard(WeatherService $service)
     {
-        //
+        $response = $service->getWeather(1);
+        
+        return response()->json($response);
     }
 
     /**
