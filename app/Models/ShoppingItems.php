@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class ShoppingItems extends Model
 {
     protected $table = 'shopping_items';
-    protected $primaryKey = 'shopping_item_id';
+    protected $primaryKey = 'sh_item_id';
     public $timestamps = false;
+
+    protected $fillable = [
+        'name',
+        'url',
+        'store_id',
+        'user_id',
+    ];
 }

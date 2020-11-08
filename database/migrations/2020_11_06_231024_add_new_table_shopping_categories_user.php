@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNewTableShoppingLists extends Migration
+class AddNewTableShoppingCategoriesUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddNewTableShoppingLists extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_lists', function (Blueprint $table) {
-            $table->mediumIncrements('shopping_list_id');
-            $table->string('name', 1000);
-            $table->integer('user_id');
+        Schema::create('shopping_categories_user', function (Blueprint $table) {
+            $table->mediumIncrements('sh_categories_user_id');
+            $table->mediumInteger('sh_category_id');
+            $table->tinyInteger('user_id');
         });
     }
 
@@ -27,6 +27,6 @@ class AddNewTableShoppingLists extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_lists');
+        Schema::dropIfExists('shopping_categories_user');
     }
 }

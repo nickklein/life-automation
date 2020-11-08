@@ -2,13 +2,115 @@
 
 namespace App\Repositories;
 
-use App\Models\ShoppingLists;
+use App\Models\ShoppingItems;
+use App\Models\ShoppingCategories;
+use App\Models\ShoppingCategoriesUser;
+use App\Models\ShoppingItemsCategory;
+use App\Models\Stores;
 
 class ShoppingRepository
 {
-    public function list($userId)
+    /**
+     * Get users items list
+     *
+     * @return collection
+     */
+    public function items(int $userId)
     {
-        return ShoppingLists::where('user_id', $userId)
+        return ShoppingItems::where('user_id', $userId)
                             ->get();
+    }
+
+    /**
+     * Get users items list
+     *
+     * @return collection
+     */
+    public function item(int $itemId, int $userId)
+    {
+        return ShoppingItems::where([
+                            ['shopping_items.sh_item_id', $itemId],
+                            ['shopping_items.user_id', $userId],
+                        ])
+                        ->first();
+    }
+
+
+    /**
+     * Return categorized items
+     *
+     * @return collection
+     */
+    public function categorizedItems($categoryId, $userId)
+    {
+        return ShoppingItemsCategory::select(['shopping_items_category.sh_item_id', 'shopping_items.name', 'shopping_items.url', 'stores.name as store_name'])
+        ->where([
+            ['shopping_items_category.sh_category_id', $categoryId],
+            ['shopping_items_category.user_id', $userId],
+        ])
+        ->join('shopping_items', 'shopping_items_category.sh_item_id', 'shopping_items.sh_item_id')
+        ->join('stores', 'stores.store_id', 'shopping_items.store_id')
+        ->get();
+    }
+
+
+    /**
+     * Get users items list
+     *
+     * @return array
+     */
+    public function find(int $userId, int $itemId)
+    {
+        return ShoppingItems::where([
+                                ['user_id', $userId],
+                                ['shopping_item_id', $itemId]
+                            ])
+                            ->first();
+    }
+
+    public function getItemCategory($itemId, $userId)
+    {
+        return ShoppingItemsCategory::where([
+                    ['sh_item_id', $itemId],
+                    ['user_id', $userId],
+                ])->first();
+    }
+
+
+    /**
+     * Get Stores
+     *
+     * @return collection
+     */
+    public function stores()
+    {
+        return Stores::get();
+    }
+
+    /**
+     * Get users categories list
+     *
+     * @return collection
+     */
+    public function categories(int $userId): object
+    {
+        return ShoppingCategoriesUser::where('user_id', $userId)
+                    ->join('shopping_categories', 'shopping_categories.sh_category_id', 'shopping_categories_user.sh_category_id')
+                    ->get();
+    }
+
+    /**
+     * Find specific category
+     *
+     * @return collection
+     */
+    public function category(int $categoryId, int $userId): object
+    {
+        return ShoppingCategoriesUser::where([
+                        ['user_id', $userId],
+                        ['sh_categories_user_id', $categoryId],
+                ])
+                ->join('shopping_categories', 'shopping_categories.sh_category_id', 'shopping_categories_user.sh_category_id')
+                ->first();
     }
 }

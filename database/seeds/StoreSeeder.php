@@ -12,10 +12,6 @@ class StoreSeeder extends Seeder
      */
     public function run()
     {
-        $insert = [
-            ['name' => 'Save On Foods'],
-            ['name' => 'Walmart'],
-        ];
-        Stores::insert($insert);
+        factory(Stores::class, 2)->create();
     }
 }

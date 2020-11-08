@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \App\Models\ShoppingItemsCategory;
 
-class ShoppingListSeeder extends Seeder
+class ShoppingItemsCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class ShoppingListSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\ShoppingLists::class, 2)->create();
+        factory(ShoppingItemsCategory::class, 25)->create();
     }
 }

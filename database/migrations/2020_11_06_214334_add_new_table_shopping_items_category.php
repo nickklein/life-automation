@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNewTableShoppingPrices extends Migration
+class AddNewTableShoppingItemsCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddNewTableShoppingPrices extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_prices', function (Blueprint $table) {
-            $table->mediumIncrements('sh_price_id');
+        Schema::create('shopping_items_category', function (Blueprint $table) {
+            $table->mediumIncrements('sh_items_category_id');
             $table->mediumInteger('sh_item_id');
-            $table->integer('amount');
-            $table->tinyInteger('store_id');
+            $table->mediumInteger('sh_category_id');
+            $table->tinyInteger('user_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class AddNewTableShoppingPrices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_prices');
+        Schema::dropIfExists('shopping_items_category');
     }
 }

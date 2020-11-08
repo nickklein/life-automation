@@ -12,7 +12,7 @@ $factory->define(ShoppingPrices::class, function (Faker $faker) {
     $store = Stores::inRandomOrder()->first();
 
     return [
-        'shopping_item_id' => $item['shopping_item_id'],
+        'sh_item_id' => $item['sh_item_id'],
         'amount' => rand(100, 1000),
         'store_id' => $store['store_id'],
         'created_at' => date('Y-m-d H:m:s'),
