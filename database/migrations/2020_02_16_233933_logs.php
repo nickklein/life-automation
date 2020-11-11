@@ -17,7 +17,7 @@ class Logs extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('log_id');
             $table->string('type');
-            $table->string('description');
+            $table->text('description');
             $table->integer('user_id');
             $table->timestamps();
         });

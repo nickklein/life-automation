@@ -60,6 +60,7 @@ class GetWeatherForecast extends Command
                     $fill[] = [
                         'main' => Arr::get($hour, 'weather.0.main'),
                         'api_id' => Arr::get($hour, 'weather.0.id'),
+                        'icon' => Arr::get($hour, 'weather.0.icon'),
                         'description' => Arr::get($hour, 'weather.0.description'),
                         'temp' => Arr::get($hour, 'main.temp'),
                         'temp_min' => Arr::get($hour, 'main.temp_min'),

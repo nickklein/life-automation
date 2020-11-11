@@ -7,6 +7,21 @@ use Carbon\Carbon;
 
 class WeatherRepository
 {
+    /**
+     * Get current and forecast for all listed cities
+     *
+     **/
+    public static function findWeather(int $id, array $selected = ['*']): object
+    {
+        return Weather::select($selected)
+                ->join('cities', 'cities.city_id', '=', 'weathers.city_id')
+                ->whereDate('weather_time', Carbon::today())
+                ->where([
+                    'weathers.city_id' => $id,
+                ])
+                ->get();
+    }
+
     public static function current(int $id)
     {
         // TODO: Latest Current, not just any current, also first

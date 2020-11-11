@@ -11032,6 +11032,10 @@ a.text-dark:focus {
   }
 }
 
+.invalid-feedback {
+  display: block !important;
+}
+
 @media (min-width: 576px) {
   #app {
     display: grid;

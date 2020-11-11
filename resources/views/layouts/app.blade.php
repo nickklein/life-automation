@@ -36,6 +36,14 @@
                         <h4>{{ config('app.name', 'Life Automation') }}</h4>
                     </div>
                     <ul class="sidebar__list">
+                        <li class="sidebar__list-item"><a href="{{ route("dashboard") }}">Dashboard</a></li>
+                        <li class="sidebar__list-item sidebar-dropdown-menu">
+                            <a href="#">Shopping</a>
+                            <ul class="dropdown">
+                                <li><a href="{{ route('shopping.categories') }}">Categories</a></li>
+                                <li><a href="{{ route('shopping.items') }}">Items</a></li>
+                            </ul>
+                        </li>
                         <li class="sidebar__list-item"><a href="{{ route("devices") }}">Device</a></li>
                         <li class="sidebar__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
                         <li class="sidebar__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
@@ -53,6 +61,9 @@
                         <li class="mobile__list-item"><a href="{{ route("devices") }}">Device</a></li>
                         <li class="mobile__list-item"><a href="{{ route("devices.jobs") }}">Device Jobs</a></li>
                         <li class="mobile__list-item"><a href="{{ route("oauth.personal") }}">Personal Access Token</a></li>
+                        <li class="mobile__list-item">
+                            <a href="{{ route("devices.jobs") }}">Shopping</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
