@@ -15,7 +15,7 @@ class AddNewColumnStatusToShoppingCategoriesUser extends Migration
     {
         // low, priority, disabled, normal
         Schema::table('shopping_categories_user', function (Blueprint $table) {
-            $table->tinyInteger('status')->default(2);
+            $table->tinyInteger('status')->default(1);
         });
     }
 

@@ -105,6 +105,8 @@ class ShoppingRepository
     {
         return ShoppingCategoriesUser::where('user_id', $userId)
                     ->join('shopping_categories', 'shopping_categories.sh_category_id', 'shopping_categories_user.sh_category_id')
+                    ->orderBy('shopping_categories_user.status', 'DESC')
+                    ->orderBy('shopping_categories.name', 'ASC')
                     ->get();
     }
 

@@ -19,8 +19,8 @@
                         <td>
                             <select name="status" :category_id="{{$item['sh_categories_user_id']}}" v-on:change="changeSelect">
                                 <option value="0" {{ $item['status'] == 0 ? 'selected' : '' }}>Disabled</option>
-                                <option value="1" {{ $item['status'] == 1 ? 'selected' : '' }}>Low</option>
-                                <option value="2" {{ $item['status'] == 2 ? 'selected' : '' }}>Normal</option>
+                                <option value="1" {{ $item['status'] == 1 ? 'selected' : '' }}>Normal</option>
+                                <option value="2" {{ $item['status'] == 2 ? 'selected' : '' }}>Low</option>
                                 <option value="3" {{ $item['status'] == 3 ? 'selected' : '' }}>Priority</option>
                             </select>
                         </td>
