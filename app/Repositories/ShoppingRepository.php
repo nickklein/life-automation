@@ -43,7 +43,16 @@ class ShoppingRepository
      */
     public function categorizedItems($categoryId, $userId)
     {
-        return ShoppingItemsCategory::select(['shopping_items_category.sh_item_id', 'shopping_items.name', 'shopping_items.url', 'stores.name as store_name'])
+        return ShoppingItemsCategory::select([
+            'shopping_items_category.sh_item_id', 
+            'shopping_items.name', 
+            'shopping_items.amount',
+            'shopping_items.price',
+            'shopping_items.ml',
+            'shopping_items.grams',
+            'shopping_items.url', 
+            'stores.name as store_name'
+        ])
         ->where([
             ['shopping_items_category.sh_category_id', $categoryId],
             ['shopping_items_category.user_id', $userId],
@@ -112,5 +121,25 @@ class ShoppingRepository
                 ])
                 ->join('shopping_categories', 'shopping_categories.sh_category_id', 'shopping_categories_user.sh_category_id')
                 ->first();
+    }
+
+    /**
+     * Find specific category
+     *
+     * @return collection
+     */
+    public function updateCategoryStatus(int $userId, int $categoryId, int $changeValue)
+    {
+        $shoppingCategoriesUser = ShoppingCategoriesUser::join('shopping_categories', 'shopping_categories.sh_category_id', 'shopping_categories_user.sh_category_id')
+            ->where('user_id', $userId)
+            ->where('sh_categories_user_id', $categoryId)
+            ->first();
+        
+        $shoppingCategoriesUser->status = $changeValue;
+        if (!$shoppingCategoriesUser->save()) {
+            return [];
+        }
+
+        return ['action' => 'success'];
     }
 }

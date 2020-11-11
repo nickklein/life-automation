@@ -13,6 +13,12 @@ use App\Services\LogsService;
 class ShoppingService
 {
    private $shoppingRepository;
+   const CATEGORY_STATUSES = [
+       0 => 'Disabled',
+       1 => 'Low',
+       2 => 'Normal',
+       3 => 'Priority',
+   ];
 
    public function __construct(ShoppingRepository $shoppingRepository)
    {
@@ -80,14 +86,6 @@ class ShoppingService
             $category = $this->shoppingRepository->category($categoryId, $userId);
             if ($shoppingItems) {
                 $category->items = $this->categorizedItems($category->sh_category_id, $category->user_id);
-                $category->items->map(function($item) {
-                    $item->price = 'N/A';
-                    $price = ShoppingPrices::where('sh_item_id', $item->sh_item_id)->first();
-                    if ($price) {
-                        $item->price = '$'.($price['amount']/10);
-                    }
-                    return $item;
-                });
             }
         } catch (\Throwable $th) {
             (new LogsService)->handle('error.updateItems', 'Error while updating Items ' . $th->getMessage());
@@ -123,21 +121,37 @@ class ShoppingService
      */
     public function updateCategory(int $userId, int $categoryId, string $name): array
     {
-        $categories = ShoppingCategories::firstOrCreate(['name' => $name]);
-        $categoryUser = ShoppingCategoriesUser::where(
-            ['sh_category_id' => $categoryId, 'user_id' => $userId]
-        )->first();
+        try {
+            $categories = ShoppingCategories::firstOrCreate(['name' => $name]);
+            
+            ShoppingCategoriesUser::where(
+                ['sh_category_id' => $categoryId, 'user_id' => $userId]
+            )->update(['sh_category_id' => $categories->sh_category_id]);
+            
+            ShoppingItemsCategory::where([
+                'sh_category_id' => $categoryId,
+                'user_id' => $userId,
+            ])->update([
+                'sh_category_id' => $categories->sh_category_id,
+                'updated_at' => date('Y-m-d H:m:s'),
+            ]);
 
-        if (!$categoryUser) {
-            return [];
+        } catch (\Throwable $th) {
+            (new LogsService)->handle('error.updateCategory', 'Error while updating Category ' . $th->getMessage());
         }
 
-        $changed = $categoryUser->update(['sh_category_id' => $categories->sh_category_id]);
-        if (!$changed) {
-            return [];
-        }
-        
+
         return ['action' => 'success']; 
+    }
+
+    /**
+     * Update category
+     *
+     * @return array
+     */
+    public function updateCategoryStatus(int $userId, int $categoryId, int $changeValue)
+    {
+        return $this->shoppingRepository->updateCategoryStatus($userId, $categoryId, $changeValue);
     }
 
 
@@ -146,21 +160,26 @@ class ShoppingService
      *
      * @return array
      */
-    public function storeItems(int $userId, int $storeId, int $categoryId, string $name, string $url): array
+    public function storeItems(int $userId, array $fields): array
     {
-        $items = ShoppingItems::firstOrCreate([
-                    'name' => $name,
-                    'url' => $url,
-                    'store_id' => $storeId, 
-                    'user_id' => $userId
-                ]);
+        $items = ShoppingItems::create([
+                    'name' => $fields['item_name'],
+                    'url' => $fields['item_url'],
+                    'amount' => $fields['item_amount'],
+                    'grams' => $fields['item_grams'],
+                    'ml' => $fields['item_ml'],
+                    'price' => $fields['item_price'],
+                    'store_id' => $fields['store'], 
+                    'user_id' => $userId, 
+        ]);
+
         if (!$items) {
             return [];
         }
 
         $categories = ShoppingItemsCategory::firstOrCreate([
             'sh_item_id' => $items->sh_item_id,
-            'sh_category_id' => $categoryId,
+            'sh_category_id' => $fields['category'],
             'user_id' => $userId,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s'),
@@ -190,6 +209,10 @@ class ShoppingService
             ])->update([
                 'name' => $fields['item_name'],
                 'url' => $fields['item_url'],
+                'amount' => $fields['item_amount'],
+                'grams' => $fields['item_grams'],
+                'ml' => $fields['item_ml'],
+                'price' => $fields['item_price'],
                 'store_id' => $fields['store']
             ]);
     

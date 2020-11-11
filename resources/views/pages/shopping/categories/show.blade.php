@@ -11,6 +11,7 @@
         <thead class="thead">
             <th>Name</th>
             <th>Price</th>
+            <th>Info</th>
             <th>Store</th>
         </thead>
 
@@ -19,6 +20,7 @@
                 <tr>
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['price'] }}</td>
+                    <td>Grams: {{$item['grams']}}, Ml: {{$item['ml']}}, Amount: {{$item['amount']}}</td>
                 <td><a href="{{ $item['url'] }}" target="_blank">{{ $item['store_name'] }}</a></td>
                 </tr> 
             @endforeach

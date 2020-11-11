@@ -13,6 +13,10 @@ class ShoppingItems extends Model
     protected $fillable = [
         'name',
         'url',
+        'amount',
+        'grams',
+        'ml',
+        'price',
         'store_id',
         'user_id',
     ];

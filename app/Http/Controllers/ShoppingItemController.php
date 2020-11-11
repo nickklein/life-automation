@@ -33,6 +33,10 @@ class ShoppingItemController extends Controller
         $validator = Validator::make($request->all(), [
             'item_name' => 'required|string',
             'item_url' => 'required|string',
+            'item_amount' => 'int',
+            'item_grams' => 'int',
+            'item_ml' => 'int',
+            'item_price' => 'between:0,99.99',
             'category' => 'required|int',
             'store' => 'required|int',
         ]);
@@ -44,7 +48,7 @@ class ShoppingItemController extends Controller
         }
         
         $fields = $request->all();
-        $response = $shoppingService->storeItems(Auth::user()->id, $fields['store'], $fields['category'], $fields['item_name'], $fields['item_url']);
+        $response = $shoppingService->storeItems(Auth::user()->id, $fields);
 
         if (empty($response)) {
             return back()->with(['message' => __("Couldn't save. Please try again later.")]);
@@ -59,6 +63,10 @@ class ShoppingItemController extends Controller
             'item_id' => 'required|int',
             'item_name' => 'required|string',
             'item_url' => 'required|string',
+            'item_amount' => 'int',
+            'item_grams' => 'int',
+            'item_ml' => 'int',
+            'item_price' => 'between:0,99.99',
             'category' => 'required|int',
             'store' => 'required|int',
         ]);

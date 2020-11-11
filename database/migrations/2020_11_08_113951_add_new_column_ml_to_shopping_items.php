@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Logs extends Migration
+class AddNewColumnMlToShoppingItems extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class Logs extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('logs', function (Blueprint $table) {
-            $table->bigIncrements('log_id');
-            $table->string('type');
-            $table->text('description');
-            $table->integer('user_id');
-            $table->timestamps();
+        Schema::table('shopping_items', function (Blueprint $table) {
+            $table->mediumInteger('ml')->default(0);
         });
     }
 
@@ -30,7 +25,8 @@ class Logs extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('logs');
+        Schema::table('shopping_items', function (Blueprint $table) {
+            $table->dropColumn('ml');
+        });
     }
 }

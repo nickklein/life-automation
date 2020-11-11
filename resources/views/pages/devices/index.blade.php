@@ -17,7 +17,7 @@
                             <td>{{$item["device_id"]}}</td>
                             <td><a href="{{ route('device.settings', ['deviceId' => $item['device_id']]) }}">{{$item["device_name"]}}</a></td>
                             <td>{{$item["last_online"]}}</td>
-                            <td><a href="#" class="btn btn-primary" v-on:click="action('reboot', {{$item['device_id']}})">Reboot</a> <a href="#" class="btn btn-primary" v-on:click="action('shutdown', {{$item['device_id']}})">Shutdown</a> <a href="#" class="btn btn-primary" v-on:click="action('update', {{$item['device_id']}})">Update</a></td>
+                            <td><a href="#" class="btn btn-primary" v-on:change="action({{$item['device_id']}})">Reboot</a> <a href="#" class="btn btn-primary" v-on:click="action('shutdown', {{$item['device_id']}})">Shutdown</a> <a href="#" class="btn btn-primary" v-on:click="action('update', {{$item['device_id']}})">Update</a></td>
                         </tr>        
                     @endforeach
                 </tbody>

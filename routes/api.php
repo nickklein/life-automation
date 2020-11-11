@@ -34,6 +34,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/files/store', 'api\FilesController@store')->name('api.files.store');
 
     Route::get('/weather/dashboard', 'api\WeatherController@dashboard')->name('api.weather.dashboard');
+
+    Route::post('/shopping/category/update', 'api\ShoppingCategoryController@update')->name('api.shopping.update');
 });
 
 Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('api.weather.show');
