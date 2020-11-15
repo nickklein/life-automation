@@ -4,12 +4,17 @@ import os
 from dotenv import load_dotenv
 
 #load env file
-dotenv_path = '../.env'
-load_dotenv(dotenv_path)
+if (True):
+	path = '/var/www/vhosts/nickklein.ca/subdomains/life.nickklein.ca/.env'
+else:
+	path = '../.env'
+	
+load_dotenv(path)
 
 class User:
 
 	MYSQL_HOST = os.environ.get("DB_HOST")
+	MYSQL_PORT = os.environ.get("DB_PORT")
 	MYSQL_USER = os.environ.get("DB_USERNAME")
 	MYSQL_PASSWORD = os.environ.get("DB_PASSWORD")
 	MYSQL_DATABASE = os.environ.get("DB_DATABASE")
@@ -22,6 +27,7 @@ class User:
 
 		# Connect to the database
 		connection = pymysql.connect(host=self.MYSQL_HOST,
+									 port=25060,
 		                             user=self.MYSQL_USER,
 		                             password=self.MYSQL_PASSWORD,
 		                             db=self.MYSQL_DATABASE,
@@ -45,7 +51,6 @@ class User:
 				SELECT users.id, tags.tag_id, tags.tag_name FROM users 
 				LEFT JOIN user_tags ON user_tags.user_id=users.id 
 				INNER JOIN tags ON user_tags.tag_id=tags.tag_id 
-				WHERE users.updated_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
 				ORDER BY users.id ASC"""
 
 		cursor.execute(sql)

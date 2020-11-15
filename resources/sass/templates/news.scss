@@ -1,0 +1,26 @@
+section.news-feed {
+	color: #000;
+	.item {
+		margin: 1em 0;
+		border-bottom: 1px #e7e7e7 solid;
+	}
+	.number {
+		font-size: 2.5em;
+		margin-right: 20px;
+		color: gray;
+	}
+	.meta {
+		h2 {
+			font-size: 1.5em;
+		}
+		.tags,.dated-posted {
+			color: gray;
+		}
+	}
+}
+
+.settings-news {
+	input[type="checkbox"] {
+		margin: 5px 5px 5px 5px;
+	}
+}

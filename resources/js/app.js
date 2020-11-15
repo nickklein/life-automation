@@ -34,7 +34,9 @@ Vue.component('device-settings-list', require('./components/devices/DeviceSettin
 Vue.component('device-jobs-list',require('./components/devices/DeviceJobs.vue').default);
 Vue.component('life-weather',require('./components/WeatherComponent.vue').default);
 Vue.component('categories-list',require('./components/shopping/CategoriesComponent.vue').default);
-
+Vue.component('news-sources',require('./components/news/NewsSourcesComponent.vue').default);
+Vue.component('news-tags',require('./components/news/NewsTagsComponent.vue').default);
+Vue.component('news-list',require('./components/news/NewsListComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

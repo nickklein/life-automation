@@ -23,6 +23,15 @@ Route::group(['middleware' => 'auth', 'prefix' => 'devices'], function () {
     Route::get('/', 'DevicesController@index')->name('devices');
     Route::get('/jobs', 'DevicesController@jobs')->name('devices.jobs');
 });
+Route::group(['middleware' => 'auth', 'prefix' => 'news'], function () {
+    Route::get('/', 'NewsController@index')->name('news');
+   // Route::get('/jobs', 'DevicesController@jobs')->name('devices.jobs');
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => 'settings'], function () {
+    Route::get('/account', 'SettingsController@index')->name('settings.account');
+   // Route::get('/jobs', 'DevicesController@jobs')->name('devices.jobs');
+});
 
 Route::group(['middleware' => 'auth', 'prefix' => 'shopping'], function () {
     Route::get('/categories', 'ShoppingCategoryController@index')->name('shopping.categories');

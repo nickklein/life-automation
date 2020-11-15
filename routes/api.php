@@ -36,6 +36,18 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/weather/dashboard', 'api\WeatherController@dashboard')->name('api.weather.dashboard');
 
     Route::post('/shopping/category/update', 'api\ShoppingCategoryController@update')->name('api.shopping.update');
+
+    // News
+    Route::post('/news/favourites/update', 'api\NewsController@favourites')->name('api.news.favourites.update');
+
+
+    Route::get('/settings/tags', 'api\settings\TagsController@index')->name('api.tags.index');
+    Route::post('/settings/tags/store', 'api\settings\TagsController@store')->name('api.tags.index');
+    Route::post('/settings/tags/delete', 'api\settings\TagsController@destroy')->name('api.tags.destroy');
+
+    Route::get('/settings/sources', 'api\settings\SourcesController@index')->name('api.sources.index');
+    Route::post('/settings/sources/update', 'api\settings\SourcesController@update')->name('api.sources.update');
+
 });
 
 Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('api.weather.show');

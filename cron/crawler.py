@@ -11,12 +11,18 @@ from dateutil.parser import parse
 from dotenv import load_dotenv
 
 #load env file
-dotenv_path = '../.env'
-load_dotenv(dotenv_path)
+
+if (True):
+	path = '/var/www/vhosts/nickklein.ca/subdomains/life.nickklein.ca/.env'
+else:
+	path = '../.env'
+
+load_dotenv(path)
 
 class Crawler:
 
 	MYSQL_HOST = os.environ.get("DB_HOST")
+	MYSQL_PORT = os.environ.get("DB_PORT")
 	MYSQL_USER = os.environ.get("DB_USERNAME")
 	MYSQL_PASSWORD = os.environ.get("DB_PASSWORD")
 	MYSQL_DATABASE = os.environ.get("DB_DATABASE")
@@ -26,6 +32,7 @@ class Crawler:
 
 		# Connect to the database
 		connection = pymysql.connect(host=self.MYSQL_HOST,
+									 port=int(self.MYSQL_PORT),
 		                             user=self.MYSQL_USER,
 		                             password=self.MYSQL_PASSWORD,
 		                             db=self.MYSQL_DATABASE,
@@ -127,6 +134,8 @@ class Crawler:
 		for item_p in content.select(paragraph):
 			content_dump += item_p.encode('utf-8').decode('ascii', 'ignore')
 
+		if len(title) and len(content_dump):
+			active = 1
 		
 		#Fetching time is a bit tricky. Different websites use different elements, classes and date formats to display their time
 		if content.findAll("div", {"class" : re.compile('date.*')}):
@@ -175,8 +184,7 @@ class Crawler:
 						timestamp = timestamp[0]
 			timestamp = arrow.get(timestamp)
 			time = timestamp.format('YYYY-MM-DD HH:mm:ss')
-			active = 1
-
+			
 		return [title, time, content_dump, active]
 	def fetchAndParseWebsite(self, link_url):
 		try:
