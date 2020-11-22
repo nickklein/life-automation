@@ -37,6 +37,7 @@
                     </div>
                     <ul class="sidebar__list">
                         <li class="sidebar__list-item"><a href="{{ route("dashboard") }}">Dashboard</a></li>
+                        <li class="sidebar__list-item"><a href="{{ route("news") }}">News</a></li>
                         <li class="sidebar__list-item sidebar-dropdown-menu">
                             <a href="#">Shopping</a>
                             <ul class="dropdown">
@@ -69,9 +70,11 @@
             </nav>
         </navigation>
 
-        <header>
-            Hello
-        </header>
+        @if(Auth::check())
+            <header>
+                Hello <a href="{{route('settings.account')}}">{{ Auth::user()->name }}</a>
+            </header>
+        @endif
 
         <main class="main">
             @yield('content')

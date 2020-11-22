@@ -11058,3 +11058,46 @@ header {
   grid-area: main;
 }
 
+section.news-feed {
+  color: #000;
+}
+
+section.news-feed .item {
+  margin: 1em 0;
+  border-bottom: 1px #e7e7e7 solid;
+}
+
+section.news-feed .number {
+  font-size: 2.5em;
+  margin-right: 20px;
+  color: gray;
+}
+
+section.news-feed .meta h2 {
+  font-size: 1.5em;
+}
+
+section.news-feed .meta .tags,
+section.news-feed .meta .dated-posted {
+  color: gray;
+}
+
+.settings-news input[type=checkbox] {
+  margin: 5px 5px 5px 5px;
+}
+
+.settings-container aside li {
+  list-style-type: none;
+}
+
+.settings-container aside li.active a {
+  color: #fff;
+  background: #298DD6;
+}
+
+.settings-container aside a {
+  display: block;
+  padding: 0.5em 1em;
+  background: #FCFCFC;
+}
+
