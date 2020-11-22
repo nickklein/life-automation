@@ -21,9 +21,11 @@
         "sass": "^1.26.8",
         "sass-loader": "8.*",
         "vue": "^2.6.11",
+        "vue-input-tag": "*",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@johmun/vue-tags-input": "^2.1.0",
         "vue-resource": "^1.5.1"
     }
 }

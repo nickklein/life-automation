@@ -80,9 +80,8 @@ class User:
 
 		values = self.processRankSearchValues(srcIds.copy(),srcIds.copy(),word)
 
-		it_titles = self.returnLinkIds(cursor, 'SELECT source_link_id FROM source_links WHERE source_date >= DATE_SUB(NOW(), INTERVAL 30 HOUR) AND active = 1 AND source_id IN(' + src_query[:-1] + ') AND source_title LIKE %s', values[0])
-		it_raws = self.returnLinkIds(cursor, 'SELECT source_link_id FROM source_links WHERE source_date >= DATE_SUB(NOW(), INTERVAL 30 HOUR) AND active = 1 AND source_id IN(' + src_query[:-1] + ') AND source_raw LIKE %s', values[1])
-
+		it_titles = self.returnLinkIds(cursor, 'SELECT source_link_id FROM source_links WHERE active = 1 AND source_id IN(' + src_query[:-1] + ') AND source_title LIKE %s', values[0])
+		it_raws = self.returnLinkIds(cursor, 'SELECT source_link_id FROM source_links WHERE active = 1 AND source_id IN(' + src_query[:-1] + ') AND source_raw LIKE %s', values[1])
 
 		for item in it_titles:
 			number = self.PT_TITLE

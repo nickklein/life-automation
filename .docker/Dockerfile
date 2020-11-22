@@ -16,4 +16,4 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 RUN bash nodesource_setup.sh
 RUN apt install -y nodejs
 
-RUN pip3 install pymysql bs4 arrow python-dotenv
+RUN pip3 install pymysql bs4 arrow python-dotenv requests
