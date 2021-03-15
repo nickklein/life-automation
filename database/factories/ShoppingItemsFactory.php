@@ -1,21 +1,38 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
+use App\Models\ShoppingItems;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Model;
 use App\User;
 use App\Models\ShoppingPrices;
-use App\Models\ShoppingItems;
 use App\Models\Stores;
 use Faker\Generator as Faker;
 
-$factory->define(ShoppingItems::class, function (Faker $faker) {
-    $store = Stores::inRandomOrder()->first();
+class ShoppingItemsFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ShoppingItems::class;
 
-    return [
-        'name' => $faker->name,
-        'store_id' => $store['store_id'],
-        'url' => '',
-        'user_id' => 1,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $store = Stores::inRandomOrder()->first();
+
+        return [
+            'name' => $this->faker->name,
+            'store_id' => $store['store_id'],
+            'url' => '',
+            'user_id' => 1,
+        ];
+    }
+}

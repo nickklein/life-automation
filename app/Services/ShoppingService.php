@@ -60,7 +60,27 @@ class ShoppingService
      */
     public function categorizedItems(int $categoryId, int $userId)
     {
-        return $this->shoppingRepository->categorizedItems($categoryId, $userId);
+        $items = $this->shoppingRepository->categorizedItems($categoryId, $userId);
+        $items->map(function($item) {
+            $item->pricePerGram = 0;
+            $item->pricePerMl = 0;
+            $item->pricePerAmount = 0;
+
+            if ($item->price && $item->grams) {
+                $item->pricePerGram = $item->price / $item->grams;
+            }
+            if ($item->price && $item->ml) {
+                $item->pricePerMl = $item->price / $item->ml;
+            }
+            if ($item->price && $item->amount) {
+                $item->pricePerAmount = $item->price / $item->amount;
+            }
+
+
+            return $item;
+        });
+
+        return $items;
     }
 
 
