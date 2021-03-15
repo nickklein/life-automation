@@ -1,19 +1,35 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\ShoppingItemsCategory;
-use App\Models\ShoppingCategories;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ShoppingItems;
-use Faker\Generator as Faker;
+use App\Models\ShoppingCategories;
 
-$factory->define(ShoppingItemsCategory::class, function (Faker $faker) {
-    $item = ShoppingItems::inRandomOrder()->first();
-    $category = ShoppingCategories::inRandomOrder()->first();
+class ShoppingItemsCategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ShoppingItemsCategory::class;
 
-    return [
-        'sh_item_id' => $item['sh_item_id'],
-        'sh_category_id' => $category['sh_category_id'],
-        'user_id' => 1,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $item = ShoppingItems::inRandomOrder()->first();
+        $category = ShoppingCategories::inRandomOrder()->first();
+    
+        return [
+            'sh_item_id' => $item['sh_item_id'],
+            'sh_category_id' => $category['sh_category_id'],
+            'user_id' => 1,
+        ];
+    }
+}

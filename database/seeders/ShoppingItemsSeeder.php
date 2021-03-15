@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use \App\Models\ShoppingItems;
 
@@ -12,6 +14,6 @@ class ShoppingItemsSeeder extends Seeder
      */
     public function run()
     {
-        factory(ShoppingItems::class, 25)->create();
+        ShoppingItems::factory()->count(25)->create();
     }
 }

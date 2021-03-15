@@ -1,10 +1,15 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use \App\Models\ShoppingItemsCategory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ShoppingItemsCategorySeeder extends Seeder
 {
+    use HasFactory;
+    
     /**
      * Run the database seeds.
      *
@@ -12,6 +17,6 @@ class ShoppingItemsCategorySeeder extends Seeder
      */
     public function run()
     {
-        factory(ShoppingItemsCategory::class, 25)->create();
+        ShoppingItemsCategory::factory()->count(25)->create();
     }
 }

@@ -18,10 +18,10 @@
         <tbody>
             @foreach ($data['items'] as $item)
                 <tr>
-                    <td>{{ $item['name'] }}</td>
+                    <td><a href="{{route('shopping.items.edit', ['itemId' => $item['sh_item_id']])}}">{{ $item['name'] }}</a></td>
                     <td>{{ $item['price'] }}</td>
-                    <td>Grams: {{$item['grams']}}, Ml: {{$item['ml']}}, Amount: {{$item['amount']}}</td>
-                <td><a href="{{ $item['url'] }}" target="_blank">{{ $item['store_name'] }}</a></td>
+                    <td>Grams: {{$item['grams']}} (${{ $item['pricePerGram'] }}), Ml: {{$item['ml']}} (${{ $item['pricePerMl'] }}), Amount: {{$item['amount']}} (${{ $item['pricePerAmount'] }})</td>
+                    <td><a href="{{ $item['url'] }}" target="_blank">{{ $item['store_name'] }}</a></td>
                 </tr> 
             @endforeach
         </tbody>

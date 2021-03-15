@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\Stores;
 
@@ -12,6 +14,6 @@ class StoreSeeder extends Seeder
      */
     public function run()
     {
-        factory(Stores::class, 2)->create();
+        Stores::factory()->count(3)->create();
     }
 }
