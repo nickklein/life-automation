@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function () {
+    Route::post('/notify/send', 'api\NotifyController@send')->name('api.notify.send');
 
     Route::get('/device/jobs', 'api\DeviceJobsController@index')->where('id', '[0-9]+')->name('api.device.jobs');
     Route::get('/device/{id}/jobs', 'api\DeviceJobsController@show')->where('id', '[0-9]+')->name('api.device.jobs');
@@ -47,7 +48,6 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/settings/sources', 'api\settings\SourcesController@index')->name('api.sources.index');
     Route::post('/settings/sources/update', 'api\settings\SourcesController@update')->name('api.sources.update');
-
 });
 
 Route::get('/weather/{city_id}', 'api\WeatherController@show')->where('city_id', '[0-9]+')->name('api.weather.show');

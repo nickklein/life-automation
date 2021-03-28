@@ -66,7 +66,12 @@ class DeviceService
     {
         $response = [];
         foreach($settings as $setting) {
-            $response[$setting["key"]] = ($setting["value"]) ? true : false;
+            $response[$setting["key"]] = $setting["value"];
+
+            // Boolean
+            if (is_numeric($setting["value"])) {
+                $response[$setting["key"]] = (int)$setting["value"];
+            }
         }
         
         return $response;
