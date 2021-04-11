@@ -1,0 +1,1 @@
+<p>Movement was triggered on device "{{ $deviceName }}" at {{ $dateTime }}</p>
