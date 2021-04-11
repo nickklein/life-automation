@@ -13,6 +13,11 @@ class NotifyController extends Controller
     public function send(NotifyRequest $request, NotifyService $service)
     {
         $fields = $request->validated();
-        $response = $service->sendToUser($fields, Auth::user()->id);
+        // Run only if it's me
+        if (Auth::user()->id !== 1) {
+            return 'Invalid User';
+        }
+
+        return $service->sendToUser($fields, Auth::user()->id);
     }
 }

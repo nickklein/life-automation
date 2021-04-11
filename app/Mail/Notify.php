@@ -32,6 +32,7 @@ class Notify extends Mailable
     public function build()
     {
         return $this->view('mail.notify')
+                ->subject('Motion Triggered')
                 ->with([
                     'deviceName' => $this->deviceName,
                     'dateTime' => date('Y-m-d H:i:s'),
